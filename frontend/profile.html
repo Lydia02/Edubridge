@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduBridge: Profile Settings</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/profile.css" rel="stylesheet">
+</head>
+<body>
+    <div class="wrapper">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <img src="img/icon.png" alt="EduBridge Logo" class="logo">
+                <h3>EduBridge</h3>
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li><a href="dashboard.html"><i class="fas fa-home"></i> Dashboard</a></li>
+                    <li><a href="dashboardcourses.html"><i class="fas fa-book"></i> Courses</a></li>
+                    <li><a href="profile.html" class="active"><i class="fas fa-user"></i> Profile</a></li>
+                    <li><a href="enrollments.html"><i class="fas fa-list"></i> Enrollments</a></li>
+                    <li><a href="login.html"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Header -->
+            <header class="header">
+                <h1>Account Settings</h1>
+            </header>
+
+            <!-- Profile Content -->
+            <section class="profile-content">
+                <!-- Profile Details -->
+                <div class="profile-section">
+                    <h2>Profile Details</h2>
+                    <form id="profile-picture-form">
+                        <div class="profile-picture">
+                            <img id="profilePicturePreview" src="img/default-profile.jpg" alt="Profile Picture">
+                            <label class="upload-button" for="profilePicture">Upload Profile Photo</label>
+                            <input type="file" id="profilePicture" class="file-input" accept="image/*">
+                        </div>
+                        <div class="profile-info">
+                            <div class="form-group">
+                                <label for="username">Username</label>
+                                <input type="text" id="firstNameDisplay" class="form-control" disabled>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="email" id="emailDisplay" class="form-control" disabled>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Account Settings -->
+                <div class="account-settings">
+                    <div class="card">
+                        <h3>Change Password</h3>
+                        <p>You can change your password here to keep your account secure.</p>
+                        <button class="btn btn-primary">Change Password</button>
+                    </div>
+                    <div class="card">
+                        <h3>Close Account</h3>
+                        <p>You can permanently delete or temporarily freeze your account.</p>
+                        <button class="btn btn-danger">Close Account</button>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/profile.js"></script>
+</body>
+</html>
