@@ -55,6 +55,7 @@ export const startServer = async () => {
   } catch (err) {
     fastify.log.error(err);
     process.exit(1);
+    
   }
 };
 
