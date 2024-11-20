@@ -48,14 +48,12 @@ fastify.addHook("onClose", async (instance, done) => {
 // Start server function
 export const startServer = async () => {
   try {
-    await fastify.listen({ port: process.env.PORT || 3000 });
-    fastify.log.info(
-      `Server running at http://localhost:${process.env.PORT || 3000}/`
-    );
+    const port = process.env.PORT || 3002; // Use Render's PORT or default to 3002
+    await fastify.listen({ port, host: "0.0.0.0" }); // Bind to 0.0.0.0
+    fastify.log.info(`Server running at http://0.0.0.0:${port}/`);
   } catch (err) {
     fastify.log.error(err);
     process.exit(1);
-
   }
   
 };
