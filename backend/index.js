@@ -12,7 +12,7 @@ import certificateRoutes from "./src/routes/certificateRoutes.js";
 import reviewRoutes from "./src/routes/reviewRoutes.js"
 
 fastify.register(fastifyCors, {
-  origin: ["http://localhost:3000", "http://127.0.0.1:5501"], // Allow all origins, or you can specify your frontend URL like 'http://127.0.0.1:5500'
+  origin: ["http://localhost:3000", "http://127.0.0.1:5501", "https://edubridge-project.netlify.app"], // Allow all origins, or you can specify your frontend URL like 'http://127.0.0.1:5500'
   methods: ['GET', 'POST', 'PUT', 'DELETE'], // Define allowed HTTP methods
   allowedHeaders: ['Content-Type', 'Authorization'], // Allow headers needed for authentication
   credentials: true // Allow credentials (i.e., cookies, authorization headers)
