@@ -12,7 +12,7 @@ async function loadUserData() {
 
     // Load user profile for personalized welcome message
     try {
-        const profileResponse = await fetch('http://localhost:3000/profile', {
+        const profileResponse = await fetch('https://edubridge-n4rs.onrender.com/profile', {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem('token')}`,
@@ -35,7 +35,7 @@ async function loadUserData() {
 
     // Load enrollments data for display in the dashboard
     try {
-        const enrollmentsResponse = await fetch('http://localhost:3000/api/enrollments', {
+        const enrollmentsResponse = await fetch('https://edubridge-n4rs.onrender.com/api/enrollments', {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem('token')}`
@@ -105,7 +105,7 @@ function startCourse(courseId) {
 // Unenroll function
 async function unenroll(courseId) {
     try {
-        const response = await fetch('http://localhost:3000/api/unenroll', {
+        const response = await fetch('https://edubridge-n4rs.onrender.com//api/unenroll', {
             method: 'POST',
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem('token')}`,

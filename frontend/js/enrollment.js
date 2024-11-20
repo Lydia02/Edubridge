@@ -81,7 +81,7 @@ async function loadEnrollments() {
     }
 
     try {
-        const response = await fetch('http://localhost:3000/api/enrollments', {
+        const response = await fetch('https://edubridge-n4rs.onrender.com/api/enrollments', {
             method: 'GET',
             headers: { 'Authorization': `Bearer ${token}` }
         });
@@ -222,7 +222,7 @@ async function unenroll(courseId) {
     }
 
     try {
-        const response = await fetch('http://localhost:3000/api/unenroll', {
+        const response = await fetch('https://edubridge-n4rs.onrender.com//api/unenroll', {
             method: 'POST',
             headers: {
                 'Authorization': `Bearer ${token}`,
@@ -254,7 +254,7 @@ async function downloadCertificate(courseId) {
     }
 
     try {
-        const response = await fetch(`http://localhost:3000/api/certificate/${courseId}`, {
+        const response = await fetch(`https://edubridge-n4rs.onrender.com/api/certificate/${courseId}`, {
             method: 'GET',
             headers: { 'Authorization': `Bearer ${token}` }
         });
@@ -280,7 +280,7 @@ async function downloadCertificate(courseId) {
 // Course Reviews
 async function loadCourseReviews(courseId) {
     try {
-        const response = await fetch(`http://localhost:3000/api/courses/${courseId}/reviews`);
+        const response = await fetch(`https://edubridge-n4rs.onrender.com/api/courses/${courseId}/reviews`);
         const { reviews, avgRating } = await response.json();
 
         document.getElementById('average-rating').textContent = `Average Rating: ${avgRating}`;
@@ -302,7 +302,7 @@ async function submitReview(courseId) {
     const token = getToken();
 
     try {
-        const response = await fetch(`http://localhost:3000/api/courses/${courseId}/reviews`, {
+        const response = await fetch(`https://edubridge-n4rs.onrender.com/api/courses/${courseId}/reviews`, {
             method: 'POST',
             headers: { 
                 'Authorization': `Bearer ${token}`, 

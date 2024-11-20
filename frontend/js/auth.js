@@ -6,16 +6,19 @@ document.addEventListener("DOMContentLoaded", function() {
     const signupSection = document.querySelector("#signup-form");
 
     function showMessage(message, isSuccess = false) {
+        console.log("Notification Message:", message, "Success:", isSuccess); // Debugging log
         if (notificationCard) {
             notificationCard.style.display = "block";
             notificationCard.style.backgroundColor = isSuccess ? "green" : "red";
             notificationCard.textContent = message;
-
+    
             setTimeout(() => {
                 notificationCard.style.display = "none";
             }, 3000);
         }
     }
+    
+    
 
     if (signupForm) {
         signupForm.addEventListener("submit", async function(event) {
@@ -36,12 +39,13 @@ document.addEventListener("DOMContentLoaded", function() {
             console.log("Sending signup request with data:", formData);
 
             try {
-                const response = await fetch("http://localhost:3000/signup", {
+                const response = await fetch("https://edubridge-n4rs.onrender.com/signup", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify(formData),
                 });
 
+                console.log("Signup response status:", response.status)
                 const result = await response.json();
                 console.log("Parsed signup response JSON:", result);
 
@@ -69,7 +73,7 @@ document.addEventListener("DOMContentLoaded", function() {
             const password = document.querySelector("#password").value.trim();
 
             try {
-                const response = await fetch("http://localhost:3000/login", {
+                const response = await fetch("https://edubridge-n4rs.onrender.com/login", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({ email, password }),
@@ -84,7 +88,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     showMessage(result.error || "Login failed");
                 }
             } catch (error) {
-                showMessage("An error occurred during login");
+                showMessage("An error occurred during login", error);
             }
         });
     }
@@ -99,7 +103,7 @@ document.addEventListener("DOMContentLoaded", function() {
         }
 
         try {
-            const response = await fetch("http://localhost:3000/verify", {
+            const response = await fetch("https://edubridge-n4rs.onrender.com/verify", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ email, code }),

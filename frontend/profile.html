@@ -8,7 +8,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
     <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/profile.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
 </head>
 <body>
     <div class="wrapper">
@@ -23,7 +23,6 @@
                     <li><a href="dashboard.html"><i class="fas fa-home"></i> Dashboard</a></li>
                     <li><a href="dashboardcourses.html"><i class="fas fa-book"></i> Courses</a></li>
                     <li><a href="profile.html" class="active"><i class="fas fa-user"></i> Profile</a></li>
-                    <li><a href="enrollments.html"><i class="fas fa-list"></i> Enrollments</a></li>
                     <li><a href="login.html"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
                 </ul>
             </nav>
@@ -31,54 +30,123 @@
 
         <!-- Main Content -->
         <div class="main-content">
-            <!-- Header -->
-            <header class="header">
-                <h1>Account Settings</h1>
-            </header>
+            <!-- Page Header -->
+    <!-- Header with Background Image -->
+    <header class="page-header">
+        <div class="header-overlay">
+            <h1 class="display-3 text-white text-center">Profile Settings</h1>
+        </div>
+    </header>
 
-            <!-- Profile Content -->
-            <section class="profile-content">
-                <!-- Profile Details -->
-                <div class="profile-section">
-                    <h2>Profile Details</h2>
-                    <form id="profile-picture-form">
-                        <div class="profile-picture">
-                            <img id="profilePicturePreview" src="img/default-profile.jpg" alt="Profile Picture">
-                            <label class="upload-button" for="profilePicture">Upload Profile Photo</label>
-                            <input type="file" id="profilePicture" class="file-input" accept="image/*">
-                        </div>
-                        <div class="profile-info">
-                            <div class="form-group">
-                                <label for="username">Username</label>
-                                <input type="text" id="firstNameDisplay" class="form-control" disabled>
-                            </div>
-                            <div class="form-group">
-                                <label for="email">Email</label>
-                                <input type="email" id="emailDisplay" class="form-control" disabled>
+            <!-- Profile Section -->
+            <div class="container py-5">
+                <div class="row">
+                    <!-- Profile Picture -->
+                    <div class="col-md-4 mb-4">
+                        <div class="card shadow-sm">
+                            <div class="card-body text-center">
+                                <img  src="img/about.jpg" class="img-fluid rounded-circle mb-3" alt="Profile Picture" style="width: 150px; height: 150px;">
                             </div>
                         </div>
-                    </form>
+                    </div>
+
+                    <!-- Profile Details -->
+                    <div class="col-md-8">
+                        <div class="card shadow-sm">
+                            <div class="card-header bg-white  text-white">
+                                <h5>Profile Information</h5>
+                            </div>
+                            <div class="card-body" id="profile-info">
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="firstNameDisplay" class="form-label">First Name</label>
+                                        <input type="text" id="firstNameDisplay" class="form-control" value="Lydia" disabled>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="lastNameDisplay" class="form-label">Last Name</label>
+                                        <input type="text" id="lastNameDisplay" class="form-control" value="Ojoawo" disabled>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="emailDisplay" class="form-label">Email</label>
+                                        <input type="email" id="emailDisplay" class="form-control" value="ojoawolydia@gmail.com" disabled>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="roleDisplay" class="form-label">Role</label>
+                                        <input type="text" id="roleDisplay" class="form-control" value="Student" disabledoed>
+                                    </div>
+                                </div>
+                                <button id="editBtn" class="btn btn-warning mt-3">Edit Profile</button>
+                            </div>
+
+                            <!-- Hidden Form for Editing -->
+                            <div class="card-body" id="profile-form" style="display: none;">
+                                <form>
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label for="firstName" class="form-label">First Name</label>
+                                            <input type="text" id="firstName" class="form-control">
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="lastName" class="form-label">Last Name</label>
+                                            <input type="text" id="lastName" class="form-control">
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary mt-3">Save Changes</button>
+                                    <button type="button" id="cancelEdit" class="btn btn-secondary mt-3">Cancel</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- Account Settings -->
-                <div class="account-settings">
-                    <div class="card">
-                        <h3>Change Password</h3>
-                        <p>You can change your password here to keep your account secure.</p>
-                        <button class="btn btn-primary">Change Password</button>
-                    </div>
-                    <div class="card">
-                        <h3>Close Account</h3>
-                        <p>You can permanently delete or temporarily freeze your account.</p>
-                        <button class="btn btn-danger">Close Account</button>
+                <div class="row mt-5">
+                    <div class="col-md-6">
+                        <div class="card shadow-sm">
+                            <div class="card-header bg-white  text-white">
+                                <h5>Change Password</h5>
+                            </div>
+                            <div class="card-body">
+                                <p>Secure your account by updating your password regularly.</p>
+                                <button id="changePasswordBtn" class="btn btn-warning">Change Password</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </section>
+            </div>
+        </div>
+    </div>
+
+    <!-- Password Change Modal -->
+    <div class="modal fade" id="changePasswordModal" tabindex="-1" aria-labelledby="changePasswordModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="changePasswordModalLabel">Change Password</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form id="changePasswordForm">
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="oldPassword" class="form-label">Current Password</label>
+                            <input type="password" id="oldPassword" class="form-control" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="newPassword" class="form-label">New Password</label>
+                            <input type="password" id="newPassword" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Save Password</button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 
     <!-- JavaScript Libraries -->
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="js/profile.js"></script>
 </body>
