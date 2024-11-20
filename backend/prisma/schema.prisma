@@ -37,6 +37,7 @@ model Course {
   title            String
   description      String
   imageUrl         String
+  introduction     String
   price            Float
   lectures         Int
   enrolledStudents String

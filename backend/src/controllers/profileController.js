@@ -1,85 +1,85 @@
+import bcrypt from 'bcrypt';
 import { prisma } from '../../fastify.js';
-import fs from 'fs';
-import path from 'path';
-import { fileURLToPath } from 'url';
+import fs from "fs";
+import path from "path";
 
-// Define __dirname for ES module compatibility
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+export const getUserProfile = async (req, reply) => {
+    const userId = req.user.id;
 
-// Fetch user profile
-export const getUserProfile = async (request, reply) => {
     try {
-        const userId = request.user.id; // Assuming user data from JWT
         const user = await prisma.user.findUnique({
             where: { id: userId },
-            select: {
-                id: true,
-                firstName: true,
-                lastName: true,
-                email: true,
-                role: true,
-                profilePicture: true,
-            },
+            select: { firstName: true, lastName: true, email: true, role: true }
         });
-        if (!user) {
-            return reply.status(404).send({ error: 'User not found' });
-        }
+
+        if (!user) return reply.status(404).send({ message: 'User not found' });
+
         reply.send(user);
     } catch (error) {
-        reply.status(500).send({ error: 'Failed to fetch profile data' });
+        reply.status(500).send({ message: 'Internal Server Error', error: error.message });
     }
 };
 
-// Update user profile
-export const updateUserProfile = async (request, reply) => {
-    try {
-        const userId = request.user.id;
-        const { firstName, lastName } = request.body;
+export const updateUserProfile = async (req, reply) => {
+    const userId = req.user.id;
+    const { firstName, lastName } = req.body;
 
+    try {
         const updatedUser = await prisma.user.update({
             where: { id: userId },
             data: { firstName, lastName },
+            select: { firstName: true, lastName: true, email: true, role: true }
         });
 
         reply.send(updatedUser);
     } catch (error) {
-        reply.status(500).send({ error: 'Failed to update profile data' });
+        reply.status(500).send({ message: 'Internal Server Error', error: error.message });
     }
 };
 
-// Upload profile picture
+export const changePassword = async (req, reply) => {
+    const userId = req.user.id;
+    const { oldPassword, newPassword } = req.body;
 
-export const uploadProfilePicture = async (request, reply) => {
     try {
-        const userId = request.user.id;
-        const data = await request.file();
+        const user = await prisma.user.findUnique({ where: { id: userId } });
+        if (!user) return reply.status(404).send({ message: 'User not found' });
 
-        // Ensure the upload directory exists
-        const uploadDir = path.join(__dirname, '../uploads/profile-pictures');
-        if (!fs.existsSync(uploadDir)) {
-            fs.mkdirSync(uploadDir, { recursive: true });
+        const isMatch = await bcrypt.compare(oldPassword, user.password);
+        if (!isMatch) return reply.status(400).send({ message: 'Incorrect password' });
+
+        const hashedPassword = await bcrypt.hash(newPassword, 10);
+        await prisma.user.update({ where: { id: userId }, data: { password: hashedPassword } });
+
+        reply.send({ message: 'Password changed successfully' });
+    } catch (error) {
+        reply.status(500).send({ message: 'Internal Server Error', error: error.message });
+    }
+};
+
+
+export const uploadProfilePicture = async (req, reply) => {
+    try {
+        const file = await req.file();
+        if (!file) {
+            return reply.status(400).send({ message: "No file uploaded" });
         }
 
-        // Define a unique file path
-        const fileName = `user-${userId}-${Date.now()}-${data.filename}`;
-        const filePath = path.join(uploadDir, fileName);
+        const uploadPath = path.join("uploads/profile-pictures", `${req.user.id}-${file.filename}`);
+        const savePath = path.resolve(uploadPath);
+        await file.toBuffer();
+        file.file.pipe(fs.createWriteStream(savePath));
 
-        // Write the uploaded file to the server
-        await fs.promises.writeFile(filePath, await data.toBuffer());
-
-        // Save the relative file path in the database
-        const updatedUser = await prisma.user.update({
-            where: { id: userId },
-            data: { profilePicture: `/uploads/profile-pictures/${fileName}` },
+        // Update the database with the new profile picture URL
+        const profilePictureUrl = `/uploads/profile-pictures/${req.user.id}-${file.filename}`;
+        await prisma.user.update({
+            where: { id: req.user.id },
+            data: { profilePicture: profilePictureUrl },
         });
 
-        reply.send({
-            message: 'Profile picture uploaded successfully',
-            profilePicture: updatedUser.profilePicture,
-        });
+        reply.send({ profilePicture: profilePictureUrl });
     } catch (error) {
-        console.error('Error uploading profile picture:', error);
-        reply.status(500).send({ error: 'Failed to upload profile picture' });
+        console.error("Error uploading profile picture:", error);
+        reply.status(500).send({ message: "Error uploading profile picture", error: error.message });
     }
 };

@@ -21,6 +21,7 @@ export async function register(request, reply, role) {
 
     return reply.code(201).send({ message: "Registration successful! Please check your email for the verification code." });
   } catch (error) {
+    console.log("Registration error:", error);
     if (error instanceof z.ZodError) {
       return reply.status(400).send({ error: error.errors });
     }
