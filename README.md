@@ -1,7 +1,7 @@
-# EduBridge Instructor Platform
+# EduBridge User Platform
 
 ## Link to the Application
-[EduBridge Instructor Platform](https://edubridge-instructor.onrender.com)
+[EduBridge User Platform](https://edubridge-instructor.onrender.com)
 
 ---
 
@@ -15,8 +15,8 @@
 7. [Usage](#usage)  
 8. [API Endpoints](#api-endpoints)  
     - [Authentication](#authentication)  
-    - [Course Management](#course-management)  
-    - [Progress Tracking](#progress-tracking)  
+    - [Courses](#courses)  
+    - [Enrollment and Progress](#enrollment-and-progress)  
 9. [Testing](#testing)  
 10. [CI/CD Pipeline](#ci-cd-pipeline)  
 11. [Contributing](#contributing)  
@@ -26,57 +26,54 @@
 ---
 
 ## Overview
-**EduBridge Instructor Platform** is an advanced web application designed to provide a seamless online learning environment. It bridges the gap between learners and instructors by offering a suite of tools for course management, progress tracking, and user authentication. The platform ensures secure communication and smooth interaction for all users while empowering instructors to manage educational resources efficiently.
+**EduBridge User Platform** is a comprehensive web application designed for students to view, enroll in, and take courses. It includes features such as course exploration, secure user authentication, course enrollment, and progress tracking. This platform ensures a seamless learning experience for students and fosters personal development through organized educational resources.
 
 ---
 
 ## Features
-- **Secure Authentication**: User registration, login, and email verification using JWT and secure hashing algorithms.  
-- **Course Management**: Add, update, and manage courses, categories, and lessons.  
-- **Progress Tracking**: Track learner progress with detailed metrics.  
-- **Admin Dashboard**: Manage users, view system analytics, and generate reports.  
-- **Responsive Design**: Fully functional across all devices for an optimal user experience.  
+- **User Authentication**: Signup, email verification, and secure login using JWT.  
+- **Explore Courses**: Browse available courses and view course details.  
+- **Enroll in Courses**: Students can enroll in courses to start learning.  
+- **Take Courses**: Access course content in an interactive format.  
+- **Progress Tracking**: Monitor learning progress with visual metrics.  
+- **Responsive Design**: Optimized for all devices, ensuring a smooth user experience.  
 
 ---
 
 ## Tech Stack
 ### **Backend**
-- **Fastify**: Fast and low-overhead web framework for Node.js.  
-- **Prisma ORM**: Database access and schema management with PostgreSQL.  
-- **PostgreSQL**: A robust and scalable relational database.  
-- **Bcrypt.js**: Secure password hashing for authentication.  
-- **JSON Web Tokens (JWT)**: Token-based authentication for user sessions.  
-- **Nodemailer**: Sending verification and notification emails.  
+- **Fastify**: Lightweight and fast Node.js framework.  
+- **Prisma ORM**: Database interaction and schema management.  
+- **PostgreSQL**: Scalable relational database for storing user and course data.  
+- **JSON Web Tokens (JWT)**: Secure session management for users.  
+- **Nodemailer**: Email notifications and verification.  
 
 ### **Frontend**
-- **HTML5 & CSS3**: Structuring and styling the web pages.  
-- **JavaScript (ES6)**: Adding interactivity and connecting to backend APIs.  
-- **Bootstrap**: Responsive and visually appealing design components.  
+- **HTML5 & CSS3**: Structure and styling.  
+- **JavaScript (ES6)**: Client-side logic and API integration.  
+- **Bootstrap**: Responsive and modern UI design.  
 
 ### **Deployment Tools**
-- **Render**: Hosting the backend services with database integration.  
-- **Netlify**: Deploying the frontend with continuous integration and delivery.  
-
-### **Version Control**
-- **Git & GitHub**: Source code management and collaboration.  
+- **Render**: Backend hosting and database integration.  
+- **Netlify**: Frontend hosting with continuous delivery.  
 
 ---
 
 ## Prerequisites
 - **Node.js** (v16 or higher)  
-- **PostgreSQL** (or any compatible database for Prisma)  
-- A code editor (e.g., VS Code) and Postman for testing APIs.
+- **PostgreSQL** (for backend database)  
+- Postman or any REST API testing tool for testing endpoints.  
 
 ---
 
 ## Installation
 ### Clone the Repository
 ```bash
-git clone https://github.com/Lydia02/EduBridge-Instructor.git
-cd EduBridge-Instructor
+git clone https://github.com/Lydia02/EduBridge-User.git
+cd EduBridge-User
 ```
 
-### Backend Installation
+### Backend Setup
 1. Navigate to the backend directory:
    ```bash
    cd backend
@@ -85,7 +82,7 @@ cd EduBridge-Instructor
    ```bash
    npm install
    ```
-3. Configure the `.env` file:
+3. Configure the environment variables in the `.env` file:
    ```env
    DATABASE_URL="your-database-url"
    JWT_SECRET="your-jwt-secret"
@@ -93,21 +90,21 @@ cd EduBridge-Instructor
    EMAIL_PASS="your-email-password"
    PORT=3002
    ```
-4. Apply database migrations:
+4. Run database migrations:
    ```bash
    npx prisma migrate deploy
    ```
-5. (Optional) Seed the database:
+5. Start the backend server:
    ```bash
-   node prisma/seed.js
+   npm run dev
    ```
 
-### Frontend Installation
+### Frontend Setup
 1. Navigate to the frontend directory:
    ```bash
    cd ../frontend
    ```
-2. Install frontend dependencies:
+2. Install dependencies (if applicable):
    ```bash
    npm install
    ```
@@ -116,22 +113,22 @@ cd EduBridge-Instructor
 
 ## Repository Structure
 ```
-EduBridge-Instructor/
+EduBridge-User/
 ├── backend/
 │   ├── prisma/          # Prisma schema and migrations
 │   ├── src/
-│   │   ├── controllers/ # Controllers for API logic
-│   │   ├── routes/      # API route handlers
-│   │   ├── services/    # Core business logic
-│   │   ├── utils/       # Utility functions and custom error handling
-│   │   ├── config/      # Configuration (e.g., JWT, email setup)
-│   └── fastify.js       # Server setup
+│   │   ├── controllers/ # Controllers for user, course, and progress logic
+│   │   ├── routes/      # API endpoints
+│   │   ├── services/    # Business logic
+│   │   ├── config/      # Configuration for email and JWT
+│   └── fastify.js       # Fastify server setup
 ├── frontend/
 │   ├── css/             # Stylesheets
-│   ├── js/              # Frontend scripts
+│   ├── js/              # Frontend logic and API integration
 │   ├── signup.html      # Signup page
 │   ├── login.html       # Login page
-│   ├── dashboard.html   # Dashboard page
+│   ├── courses.html     # Courses listing
+│   ├── dashboard.html   # User dashboard
 └── README.md
 ```
 
@@ -139,15 +136,13 @@ EduBridge-Instructor/
 
 ## Usage
 ### Running the Application
-1. **Backend**:  
-   Navigate to the backend directory and start the server:
+1. **Backend**: Navigate to the backend directory and start the server:
    ```bash
    npm run dev
    ```
    The backend will be accessible at `http://localhost:3002`.
 
-2. **Frontend**:  
-   Open the `frontend/signup.html` file in your browser to start interacting with the application.
+2. **Frontend**: Open the `frontend/signup.html` file in your browser to start interacting with the application.
 
 ---
 
@@ -160,9 +155,9 @@ EduBridge-Instructor/
   {
     "firstName": "Lydia",
     "lastName": "Ojoawo",
-    "email": "example@gmail.com",
+    "email": "lydia@example.com",
     "password": "password123",
-    "role": "admin"
+    "role": "student"
   }
   ```
 
@@ -171,7 +166,7 @@ EduBridge-Instructor/
   Example Request:
   ```json
   {
-    "email": "example@gmail.com",
+    "email": "lydia@example.com",
     "password": "password123"
   }
   ```
@@ -181,52 +176,55 @@ EduBridge-Instructor/
   Example Request:
   ```json
   {
-    "email": "example@gmail.com",
+    "email": "lydia@example.com",
     "code": "123456"
   }
   ```
 
-### Course Management
-- **Add Course** (Admin only):  
-  `POST /courses`  
-- **Fetch Courses**:  
+### Courses
+- **Get All Courses**:  
   `GET /courses`
 
-### Progress Tracking
-- **Log Progress**:  
-  `POST /progress`  
+- **Get Course by ID**:  
+  `GET /courses/:id`
+
+### Enrollment and Progress
+- **Enroll in a Course**:  
+  `POST /enroll`  
   Example Request:
   ```json
   {
-    "userId": "123",
-    "courseId": "456",
-    "progress": "80%"
+    "courseId": "course123",
+    "userId": "user123"
   }
   ```
-- **Fetch Progress**:  
-  `GET /progress`
+
+- **Get User Progress**:  
+  `GET /progress?userId=user123`
 
 ---
 
 ## Testing
-1. **Authentication**:
-   Use Postman or CURL to test the `/signup`, `/login`, and `/verify` endpoints.
-2. **Courses**:
-   Test the course-related routes to ensure proper functionality.
-3. **Progress**:
-   Log and fetch progress data to confirm the tracking system works.
+### Authentication
+Use Postman or a similar tool to test `/signup`, `/login`, and `/verify` endpoints.
+
+### Courses
+Verify course retrieval with `/courses` and `/courses/:id`.
+
+### Progress
+Ensure progress tracking is functional by testing `/progress`.
 
 ---
 
 ## CI/CD Pipeline
-The CI/CD pipeline ensures that the latest code is deployed automatically using:
-- **Render** for backend deployment.
-- **Netlify** for frontend hosting.
+The CI/CD pipeline uses:
+- **Render** for hosting the backend with database integration.
+- **Netlify** for deploying the frontend.
 
 ---
 
 ## Contributing
-We welcome contributions! Follow these steps:
+Contributions are welcome!  
 1. Fork the repository.  
 2. Create a feature branch:
    ```bash
@@ -240,7 +238,7 @@ We welcome contributions! Follow these steps:
    ```bash
    git push origin feature-name
    ```
-5. Open a pull request for review.
+5. Open a pull request.
 
 ---
 
@@ -250,8 +248,8 @@ This project is licensed under the MIT License. See the `LICENSE` file for detai
 ---
 
 ## Contributors
- **Lydia Ojoawo**: [GitHub](https://github.com/Lydia02)  
+- **Lydia Ojoawo**: [GitHub](https://github.com/Lydia02)
 
 ---
 
-Happy Coding! 🎉
+Happy Learning! 🎉
