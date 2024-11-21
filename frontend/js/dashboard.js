@@ -105,7 +105,7 @@ function startCourse(courseId) {
 // Unenroll function
 async function unenroll(courseId) {
     try {
-        const response = await fetch('https://edubridge-n4rs.onrender.com//api/unenroll', {
+        const response = await fetch('https://edubridge-n4rs.onrender.com/api/unenroll', {
             method: 'POST',
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem('token')}`,
