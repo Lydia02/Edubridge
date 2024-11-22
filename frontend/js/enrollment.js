@@ -19,23 +19,23 @@ function dismissNotification() {
     }
 }
 
-// Sample YouTube links and durations for each course (in seconds)
+https://youtu.be/fe5dSQbSVV4?si=kz0ue74EVtfseMEB
+
 const courseVideos = {
-    1: { url: "https://www.youtube.com/embed/DLHYPZ0TK4I", duration: 5400 },
+    1: { url: "https://www.youtube.com/embed/qz0aGYrrlhU", duration: 5400 },
     2: { url: "https://www.youtube.com/embed/1Rs2ND1ryYc", duration: 10800 },
     3: { url: "https://www.youtube.com/embed/hdI2bqOjy3c", duration: 10800 },
     4: { url: "https://www.youtube.com/embed/rfscVS0vtbw", duration: 15600 },
-    5: { url: "https://www.youtube.com/embed/JVb1eau8i4E", duration: 10800 },
-    6: { url: "https://www.youtube.com/embed/CVf9AEe-ozc", duration: 3900 },
-    7: { url: "https://www.youtube.com/embed/ulprqHHWlng", duration: 10800 },
-    8: { url: "https://www.youtube.com/embed/M1cy3zFL8bw", duration: 10800 },
+    5: { url: "https://www.youtube.com/embed/7S_tz1z_5bA", duration: 10800 },
+    6: { url: "https://www.youtube.com/embed/fe5dSQbSVV4", duration: 3900 },
+    7: { url: "https://www.youtube.com/embed/MmsoIcYrXJU", duration: 10800 },
+    8: { url: "https://www.youtube.com/embed/Nbnht4fvTDs", duration: 10800 },
     9: { url: "https://www.youtube.com/embed/2ePf9rue1Ao", duration: 4800 },
     10: { url: "https://www.youtube.com/embed/ZSPZob_1TOk", duration: 10800 },
     11: { url: "https://www.youtube.com/embed/evgFDDG2H9Y", duration: 10800 },
     12: { url: "https://www.youtube.com/embed/grEKMHGYyns", duration: 10800 },
 
 };
-
 
 // Load enrollments and display courses with progress
 
