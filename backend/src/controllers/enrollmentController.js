@@ -36,6 +36,7 @@ export async function unenrollUser(req, reply) {
         const unenrollment = await unenrollInCourse(userId, courseId);
         return reply.status(200).send({ message: 'Unenrolled successfully', unenrollment });
     } catch (error) {
+        conslole.log(error)
         return reply.status(500).send({ message: 'Unenrollment failed', error: error.message });
     }
 }
@@ -48,6 +49,7 @@ export async function getEnrollments(req, reply) {
         const enrollments = await getUserEnrollments(userId);
         reply.status(200).send({ enrollments });
     } catch (error) {
+        confirm.log(error)
         reply.status(500).send({ message: "Failed to fetch enrollments", error: error.message });
     }
 }
