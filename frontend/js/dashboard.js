@@ -102,7 +102,7 @@ function startCourse(courseId) {
      window.location.href = `enrollments.html?courseId=${courseId}`;
 }
 
-// Unenrol function
+// Unenrolg function
 async function unenroll(courseId) {
     try {
         const response = await fetch('https://edubridge-n4rs.onrender.com/api/unenroll', {
